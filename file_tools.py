@@ -26,10 +26,12 @@ def ensure_directories():
 
 def merge_pptx_files():
     folder = "Merge_pptx"
-    files = glob.glob(os.path.join(folder, "*.pptx"))
+    files = []
+    for ext in ("*.pptx", "*.ppt"):
+        files.extend(glob.glob(os.path.join(folder, ext)))
     
     if not files:
-        print(f"No .pptx files found in '{folder}'")
+        print(f"No .pptx or .ppt files found in '{folder}'")
         return
         
     print(f"Found {len(files)} files to merge.")
@@ -62,10 +64,12 @@ def merge_pptx_files():
 
 def convert_pptx_to_pdf():
     folder = "Convert_pptx_pdf"
-    files = glob.glob(os.path.join(folder, "*.pptx"))
+    files = []
+    for ext in ("*.pptx", "*.ppt"):
+        files.extend(glob.glob(os.path.join(folder, ext)))
     
     if not files:
-        print(f"No .pptx files found in '{folder}'")
+        print(f"No .pptx or .ppt files found in '{folder}'")
         return
         
     print(f"Found {len(files)} files to convert.")
@@ -131,8 +135,8 @@ def main():
     
     while True:
         print("\nPlease choose an option:")
-        print("1. Merge all PPTX files in 'Merge_pptx' folder")
-        print("2. Convert all PPTX files to PDF in 'Convert_pptx_pdf' folder")
+        print("1. Merge all PPT/PPTX files in 'Merge_pptx' folder")
+        print("2. Convert all PPT/PPTX files to PDF in 'Convert_pptx_pdf' folder")
         print("3. Merge all PDF files in 'Merge_pdf' folder")
         print("4. Exit")
         choice = input("\nEnter your choice (1/2/3/4): ").strip()
