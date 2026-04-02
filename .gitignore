@@ -34,3 +34,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Application specific folders
+Merge_pptx/
+Convert_pptx_pdf/
+Merge_pdf/
