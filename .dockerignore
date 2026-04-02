@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+env/
+.env/
+Merge_pptx/
+Convert_pptx_pdf/
+Merge_pdf/
+.git/
+.gitignore
+*.pptx
+*.ppt
+*.pdf
