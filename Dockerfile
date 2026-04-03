@@ -5,12 +5,17 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install system dependencies (LibreOffice for conversions)
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y software-properties-common && \
+    apt-add-repository contrib && apt-add-repository non-free && \
+    echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections && \
+    apt-get update && apt-get install -y \
     libreoffice \
     libreoffice-writer \
     libreoffice-impress \
     libreoffice-common \
     fonts-liberation \
+    ttf-mscorefonts-installer \
+    cabextract \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory

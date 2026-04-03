@@ -13,6 +13,12 @@ try:
 except ImportError:
     PdfWriter = None
 
+try:
+    from pptx import Presentation as PptxPresentation
+except ImportError:
+    PptxPresentation = None
+
+
 def get_timestamp():
     return datetime.now().strftime("%Y%md_%H%M%S")
 
@@ -38,6 +44,26 @@ def merge_presentations(input_files, output_dir):
     output_path = os.path.join(output_dir, output_filename)
     target_pres.SaveToFile(output_path, FileFormat.Pptx2013)
     target_pres.Dispose()
+    
+    # Remove the Spire Evaluation Warning slide
+    if PptxPresentation is not None:
+        try:
+            pptx_prs = PptxPresentation(output_path)
+            slides_to_remove = []
+            for slide in pptx_prs.slides:
+                for shape in slide.shapes:
+                    if shape.has_text_frame:
+                        text = shape.text.lower()
+                        if "evaluation" in text and "spire" in text:
+                            slides_to_remove.append(slide._element)
+                            break
+            
+            for sld in slides_to_remove:
+                pptx_prs.slides._sldIdLst.remove(sld)
+            
+            pptx_prs.save(output_path)
+        except Exception as e:
+            print(f"Warning cleanup failed: {str(e)}")
     
     return output_path
 

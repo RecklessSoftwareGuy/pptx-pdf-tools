@@ -2,3 +2,4 @@ Spire.Presentation
 pypdf
 Flask
 Werkzeug
+python-pptx
